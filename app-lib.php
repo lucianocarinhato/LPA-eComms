@@ -105,8 +105,10 @@ function build_navBlock() {
       <div id="navStock"class="navItem" onclick="navMan('stock.php')">STOCK</div>
       <div id="navSales" class="navItem" onclick="navMan('sales.php')">SALES</div>
       <div id="navReg" class="navItem" onclick="navMan('reg.php')">REGISTER</div>
+      <div id="navMashup" class="navItem" onclick="navMan('mashup.php')">MASHUP</div>
       <div class="menuSep"></div>
       <div id="navLog" class="navItem" onclick="navMan('login.php?killses=true')">LOGOUT</div>
+
     </div>
     <?PHP
   }else {      //If it does not fall under the admin condiction it builds the navBlock without the admin tab 'register'
@@ -153,9 +155,9 @@ function gen_ID($prefix='',$length=2, $strength=0) {
 /**
  *	Catch and register errors
  */
- 
+
 function gen_log(){
-  
+
 
   $date = date("Y-m-d h:m:s");
   $file = __FILE__;
@@ -171,5 +173,5 @@ function gen_log(){
 function build_footer() {
   include 'footer.php';
 }
- 
+
 ?>
