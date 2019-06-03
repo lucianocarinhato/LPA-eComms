@@ -1,10 +1,11 @@
 <?PHP
   $authChk = true;
   require('app-lib.php');
-  build_header($displayName);
+  build_headermashup($displayName);
 ?>
 
-<div id="mainPage">
+<div id="mainPageMashup">
+
     <div id="missionStatement">
     <p style="font-size:16px;">Logical Peripherals Australia’s mission is to supply high quality computer peripherals, reliable
       customer service and above all customer satisfaction. We strive to deliver the very best in the
@@ -30,3 +31,7 @@
     </div>
 
   </div>
+
+  <?PHP
+  build_footer();
+  ?>

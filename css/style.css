@@ -336,3 +336,30 @@ tr.hl:hover {
   border: 1px solid transparent;
   background-color: ;
 }
+
+#mainPageMashup {
+	position: fixed;
+	width: 1110px;
+	height: 450px;
+	margin: auto;
+	padding: 10px;
+	border: 1px solid transparent;
+	background-color: ;
+	overflow: auto;
+	margin-left: 240px
+
+}
+#headermashup {
+	position:relative;
+	width: 100%;
+	height:60px;
+	border-bottom: #777777 solid 2px;
+	color: #FFF;
+	text-shadow: 3px 3px 3px #000;
+	font: bold 24px Arial, Helvetica, sans-serif;
+	text-align: center;
+	vertical-align: middle;
+	line-height: 60px;
+	background: #FF0000; /* Old browsers */
+
+}

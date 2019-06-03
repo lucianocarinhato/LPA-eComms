@@ -93,6 +93,11 @@ function build_header() {
   global $displayGroup;
   include 'header.php';
 }
+function build_headermashup() {
+  global $displayName;
+  global $displayGroup;
+  include 'headermashup.php';
+}
 //Begining of the function Build the Navigation block with an administrator check
 function build_navBlock() {
   global $displayGroup;
