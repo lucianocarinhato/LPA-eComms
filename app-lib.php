@@ -41,8 +41,8 @@ function openDB() {
      */
     $db = new mysqli(
       "localhost",
-      "root",
-      "",
+      "lpa_ecomms",
+      "5XmvHX4djjzQRMRS",
       "lpa_ecomms"
     );
     if ($db->connect_errno) {
