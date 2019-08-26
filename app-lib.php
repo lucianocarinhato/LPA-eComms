@@ -164,10 +164,13 @@ function gen_ID($prefix='',$length=2, $strength=0) {
 function gen_log(){
 
 
-  $date = date("Y-m-d h:m:s");
+  $iplogfile = 'logs/ip-address-mainsite.html';
+  $ipaddress = $_SERVER['REMOTE_ADDR'];
+  $webpage = $_SERVER['SCRIPT_NAME'];
+  $timestamp = date('d/m/Y h:i:s');
   $file = __FILE__;
   $level = "warning";
-  $message = "[{$date}] [{$file}] [{$level}]  Error!".PHP_EOL;
+  $message = "[{$timestamp}] [{$ipaddress}] [{$webpage}] [{$file}] [{$level}]  Error!".PHP_EOL;
   error_log($message, 3, 'C:\wamp64\www\luciano\log\lpalog.log');
   }
 
