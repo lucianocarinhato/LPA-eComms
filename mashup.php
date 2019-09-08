@@ -3,7 +3,7 @@
   require('app-lib.php');
   build_headermashup($displayName);
 ?>
-
+  <?PHP build_navBlock(); ?>
 <div id="mainPageMashup">
 
     <div id="missionStatement">

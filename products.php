@@ -1,8 +1,18 @@
-<?PHP 
-  require('app-lib.php'); 
-  build_header();
+<?PHP
+  $authChk = true;
+  require('app-lib.php');
   isset($_POST['a'])? $action = $_POST['a'] : $action = "";
+  if(!$action) {
+    isset($_REQUEST['a'])? $action = $_REQUEST['a'] : $action = "";
+  }
+  isset($_POST['txtSearch'])? $txtSearch = $_POST['txtSearch'] : $txtSearch = "";
+  if(!$txtSearch) {
+    isset($_REQUEST['txtSearch'])? $txtSearch = $_REQUEST['txtSearch'] : $txtSearch = "";
+  }
+  build_header($displayName);
 ?>
+
+
   <?PHP build_navBlock(); ?>
   <div id="content">
     <div class="sectionHeader">Product List</div>
@@ -12,7 +22,6 @@
       <div>
         <input id="txtSearch" name="txtSearch" value="" placeholder="Search....">
         <button type="submit">Search</button>
-        <button type="button" onclick="loadURL('reg.php')">Add Stock</button>
       </div>
     </div>
     <input type="hidden" name="a" value="search">
@@ -31,8 +40,8 @@
       $result = $db->query($query);
 
       while ($row = $result->fetch_assoc()) {
-        if ($row['lpa_image']) {
-          $prodImage = $row['lpa_image'];
+        if ($row['lpa_stock_image']) {
+          $prodImage = $row['lpa_stock_image'];
         } else {
           $prodImage = "question.png";
         }
@@ -69,7 +78,7 @@
         </div>
       <?PHP } ?>
       </div>
-    <?PHP;
+    <?PHP
     } ?>
   <script>
     function loadURL(URL) {

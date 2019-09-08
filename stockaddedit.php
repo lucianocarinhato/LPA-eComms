@@ -13,6 +13,9 @@
   if(!$txtSearch) {
     isset($_REQUEST['txtSearch'])? $txtSearch = $_REQUEST['txtSearch'] : $txtSearch = "";
   }
+
+
+
   if($action == "delRec") {
     $query =
       "UPDATE lpa_stock SET
@@ -145,6 +148,16 @@
         <input name="txtStatus" id="txtStockStatusInactive" type="radio" value="i">
           <label for="txtStockStatusInactive">Inactive</label>
       </div>
+      <div style="margin-top: <?PHP echo $fieldSpacer; ?>">
+
+
+<!-- Save image button -->
+        <div><b>Stock Image </b></div>
+        <button type="button" name="txtStockImage" id="txtStockImage" placeholder="Stock Image" value="<?PHP echo $stockOnHand; ?>"
+        style="width: 90px;text-align: center"  title="Stock Image">Chose File</button>
+      </div>
+<!-- End save image button -->
+
       <input name="a" id="a" value="<?PHP echo $mode; ?>" type="hidden">
       <input name="sid" id="sid" value="<?PHP echo $sid; ?>" type="hidden">
       <input name="txtSearch" id="txtSearch" value="<?PHP echo $txtSearch; ?>" type="hidden">
@@ -157,6 +170,56 @@
       <?PHP } ?>
     </div>
   </div>
+  <?PHP
+  if($action == "txtStockImage") {
+
+ // Save image function
+    function saveImage(){
+          $currentDir = getcwd();
+          $uploadDirectory = "/uploads/";
+
+          $errors = []; // Store all foreseen and unforseen errors here
+
+          $fileExtensions = ['jpeg','jpg','png']; // Get all the file extensions
+
+          $fileName = $_FILES['myfile']['name'];
+          $fileSize = $_FILES['myfile']['size'];
+          $fileTmpName  = $_FILES['myfile']['tmp_name'];
+          $fileType = $_FILES['myfile']['type'];
+          $fileExtension = strtolower(end(explode('.',$fileName)));
+
+          $uploadPath = $currentDir . $uploadDirectory . basename($fileName);
+
+          if (isset($_POST['submit'])) {
+
+              if (! in_array($fileExtension,$fileExtensions)) {
+                  $errors[] = "This file extension is not allowed. Please upload a JPEG or PNG file";
+              }
+
+              if ($fileSize > 2000000) {
+                  $errors[] = "This file is more than 2MB. Sorry, it has to be less than or equal to 2MB";
+              }
+
+              if (empty($errors)) {
+                  $didUpload = move_uploaded_file($fileTmpName, $uploadPath);
+
+                  if ($didUpload) {
+                      echo "The file " . basename($fileName) . " has been uploaded";
+                  } else {
+                      echo "An error occurred somewhere. Try again or contact the admin";
+                  }
+              } else {
+                  foreach ($errors as $error) {
+                      echo $error . "These are the errors" . "\n";
+                  }
+              }
+          }
+      }
+    }
+
+     // End save image function 
+
+    ?>
   <script>
     var stockRecStatus = "<?PHP echo $stockStatus; ?>";
     if(stockRecStatus == "a") {
