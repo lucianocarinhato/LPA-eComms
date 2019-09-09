@@ -173,7 +173,14 @@
   <?PHP
   if($action == "txtStockImage") {
 
+
+
  // Save image function
+
+
+
+
+
     function saveImage(){
           $currentDir = getcwd();
           $uploadDirectory = "/uploads/";
@@ -217,7 +224,7 @@
       }
     }
 
-     // End save image function 
+     // End save image function
 
     ?>
   <script>

@@ -1,6 +1,7 @@
 <?PHP
   require('app-lib.php');
   isset($_POST['a'])? $action = $_POST['a'] : $action = "";
+  //reg_log('',"customer accessing Login Page");
   $msg = null;
   if($action == "doLogin") {
     $chkLogin = false;
@@ -8,13 +9,52 @@
       $uName = $_POST['fldUsername'] : $uName = "";
     isset($_POST['fldPassword'])?
       $uPassword = $_POST['fldPassword'] : $uPassword = "";
+      // Encrypt password //
+	    $hashedPassword = hash("sha512",$uPassword);
+      // End Encrypt password //
+
     openDB();
     $query =
       "
       SELECT
         lpa_user_ID,
         lpa_user_username,
-        lpa_user_password
+        lpa_user_password,
+        lpa_user_group
+      FROM
+        lpa_users
+      WHERE
+        lpa_user_username = '$uName'
+      AND
+        lpa_user_password = '$hashedPassword'
+      LIMIT 1
+      ";
+    $result = $db->query($query);
+    $row = $result->fetch_assoc();
+    if($row['lpa_user_username'] == $uName) {
+      if($row['lpa_user_password'] == $hashedPassword) {
+        $_SESSION['authUser'] = $row['lpa_user_ID'];
+        $_SESSION['isAdmin'] = (($row['lpa_user_group']=="administrator")?true:false);
+        lpa_log("User {$uName} sucessfully logged in.");
+          if(!empty($_SESSION['authUser'])){
+            header("Location: index.php");
+            exit;
+          }
+      }
+    }
+    if($chkLogin == false) {
+      $msg = "Login failed! Please try again.";
+	    gen_log();
+    }
+    //non hash
+    openDB();
+    $query =
+      "
+      SELECT
+        lpa_user_ID,
+        lpa_user_username,
+        lpa_user_password,
+        lpa_user_group
       FROM
         lpa_users
       WHERE
@@ -28,15 +68,22 @@
     if($row['lpa_user_username'] == $uName) {
       if($row['lpa_user_password'] == $uPassword) {
         $_SESSION['authUser'] = $row['lpa_user_ID'];
-        header("Location: index.php");
-        exit;
+        $_SESSION['isAdmin'] = (($row['lpa_user_group']=="administrator")?true:false);
+      //  lpa_log("User {$uName} sucessfully logged in.");
+          if(!empty($_SESSION['authUser'])){
+            header("Location: index.php");
+            exit;
+          }
       }
     }
     if($chkLogin == false) {
       $msg = "Login failed! Please try again.";
-	  gen_log();
+	    gen_log();
     }
   }
+
+
+
  build_header();
 ?>
   <div id="contentLogin">
@@ -70,6 +117,8 @@
     }
   });
 </script>
+
+
 <?PHP
 build_footer();
 ?>

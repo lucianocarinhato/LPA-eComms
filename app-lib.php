@@ -7,16 +7,23 @@ date_default_timezone_set('Australia/Queensland');
 /**
  * Global variables
  */
+
 // Database instance variable
 $db = null;
 $displayName = "";
 $displayGroup = "";
+
 // Start the session
 session_name("lpaecomms");
 session_start();
+
 isset($_SESSION["authUser"])?
   $authUser = $_SESSION["authUser"] :
   $authUser = "";
+isset($_SESSION["isAdmin"])?
+    $authUser = $_SESSION["isAdmin"] :
+    $authUser = "";
+
 if(isset($authChk) == true) {
   if($authUser) {
     openDB();
@@ -29,6 +36,15 @@ if(isset($authChk) == true) {
     header("location: login.php");
   }
 }
+
+if(isset($adminChk) == true) {
+  if(!$isAdmin)
+{
+
+  header("location: login.php");
+}
+}
+
 /**
  * Connect to database Function
  * - Connect to the local MySQL database and create an instance
@@ -158,22 +174,7 @@ function gen_ID($prefix='',$length=2, $strength=0) {
   return $prefix.$final_id;
 }
 
-/**
- *	Catch and register errors
- */
 
-function gen_log(){
-
-
-  $iplogfile = 'logs/ip-address-mainsite.html';
-  $ipaddress = $_SERVER['REMOTE_ADDR'];
-  $webpage = $_SERVER['SCRIPT_NAME'];
-  $timestamp = date('d/m/Y h:i:s');
-  $file = __FILE__;
-  $level = "warning";
-  $message = "[{$timestamp}] [{$ipaddress}] [{$webpage}] [{$file}] [{$level}]  Error!".PHP_EOL;
-  error_log($message, 3, 'C:\wamp64\www\luciano\log\lpalog.log');
-  }
 
 
 /**
@@ -182,5 +183,29 @@ function gen_log(){
 function build_footer() {
   include 'footer.php';
 }
+
+// Log and register errors
+
+
+
+
+function gen_log(){
+
+
+ $iplogfile = 'logs/ip-address-mainsite.html';
+ $ipaddress = $_SERVER['REMOTE_ADDR'];
+ $webpage = $_SERVER['SCRIPT_NAME'];
+ $timestamp = date('d/m/Y h:i:s');
+ $file = __FILE__;
+ $level = "warning";
+ $message = "[{$timestamp}] [{$ipaddress}] [{$webpage}] [{$file}] [{$level}]  Error!".PHP_EOL;
+ error_log($message, 3, 'C:\wamp64\www\luciano\log\lpalog.log');
+ }
+
+// End log and register errors
+
+
+
+
 
 ?>
