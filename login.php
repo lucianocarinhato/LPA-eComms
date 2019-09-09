@@ -98,7 +98,6 @@
         <div class="buttonBar">
           <button type="button" onclick="do_login()">Login</button>
           <button type="button" id="btnAddRec">Register</button>
-          <div id="navReg" class="navItem" onclick="navMan('reg.php')"
         </div>
       </div>
       <input type="hidden" name="a" value="doLogin">
