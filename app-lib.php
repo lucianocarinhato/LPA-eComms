@@ -125,6 +125,7 @@ function build_navBlock() {
       <div id="navHome"class="navItem" onclick="navMan('index.php')">HOME</div>
       <div id="navStock"class="navItem" onclick="navMan('stock.php')">STOCK</div>
       <div id="navSales" class="navItem" onclick="navMan('sales.php')">SALES</div>
+      <div id="navShoplist" class="navItem" onclick="navMan('shoplist.php')">BASKET</div>
       <div id="navReg" class="navItem" onclick="navMan('reg.php')">REGISTER</div>
       <div id="navMashup" class="navItem" onclick="navMan('mashup.php')">MASHUP</div>
       <div id="navProducts" class="navItem" onclick="navMan('products.php')">PRODUCTS</div>

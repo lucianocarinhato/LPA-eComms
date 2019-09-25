@@ -188,7 +188,7 @@ a:hover {
 }
 
 #footer {
-	position: absolute;
+	position: fixed;
 	bottom: 0px;
 	left:0px;
 	width: 100%;
@@ -198,6 +198,7 @@ a:hover {
 	font: bold 12px/30px Arial;
 	text-align:center;
 	padding-top: 5px;
+	background-color: white;
 }
 
 #contentLogin {
@@ -280,7 +281,7 @@ tr.hl:hover {
 }
 
 #content {
-	padding: 10px 5px 10px 210px
+	padding: 10px 5px 30px 210px;
 
 }
 

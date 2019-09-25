@@ -4,10 +4,17 @@ function clickme() {
 function navMan(URL) {
     window.location = URL;
 }
+
+// Message when add to basket //
+
 function addToCart(ID) {
     var qty = document.getElementById("fldQTY-"+ID).value;
-    alert(qty + " x Item: " + ID + " has been added to your cart");
+    alert(qty + " x Item: " + ID + " has been added to your basket");
 }
+
+// End message when add to basket //
+
+
 function do_login() {
     document.getElementById("frmLogin").submit();
 }

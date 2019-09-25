@@ -1,21 +1,36 @@
 <?PHP
   $authChk = true;
   require('app-lib.php');
+
+
   isset($_POST['a'])? $action = $_POST['a'] : $action = "";
-  if(!$action) {
-    isset($_REQUEST['a'])? $action = $_REQUEST['a'] : $action = "";
+  if(!$action){
+      isset($_REQUEST['a'])? $action = $_REQUEST['a'] : $action = "";
+  }
+  isset($_REQUEST['sid'])? $sid = $_REQUEST['sid'] : $sid = "";
+  if(!$sid) {
+      isset($_POST['sid'])? $sid = $_POST['sid'] : $sid = "";
   }
   isset($_POST['txtSearch'])? $txtSearch = $_POST['txtSearch'] : $txtSearch = "";
-  if(!$txtSearch) {
-    isset($_REQUEST['txtSearch'])? $txtSearch = $_REQUEST['txtSearch'] : $txtSearch = "";
+  if (!$txtSearch) {
+      isset($_REQUEST['txtSearch'])? $txtSearch = $_REQUEST['txtSearch']:$txtSearch = "";
+  }
+  isset($_REQUEST['quantity'])? $quantity = $_REQUEST['quantity'] : $quantity = "";
+  if(!$quantity) {
+      isset($_POST['quantity'])? $quantity = $_POST['quantity'] : $quantity = "";
   }
   build_header($displayName);
 ?>
-
+<?php
+    if ($action == "addToCart") {
+        $ses = "Cart".$sid;
+        $_SESSION[$ses] += $quantity;
+    }
+?>
 
   <?PHP build_navBlock(); ?>
   <div id="content">
-    <div class="sectionHeader">Product List</div>
+    <div class="PageTitle">Product List</div>
 
   <form action="" method="post">
     <div class="setionSearch">
@@ -70,7 +85,7 @@
               <button
                 type="button"
                 onclick="addToCart('<?PHP echo $prodID; ?>')">
-                Add To Cart
+                Add To Basket
               </button>
             </div>
           </div>
@@ -80,11 +95,23 @@
       </div>
     <?PHP
     } ?>
-  <script>
-    function loadURL(URL) {
-      window.location = URL;
-    }
-  </script>
+    <script>
+      var action = "<?php echo $action; ?>";
+  	var search = "<?php echo $txtSearch; ?>";
+  	if(action == "addToCart") {
+  		alert("Item Added to the Shopping Basket!");
+  		navMan("products.php?a=search&txtSearch=" + search);
+  	}
+  	function addToCart(ID) {
+  		var Quantity=$("#quantity" + ID).val();
+  		window.location = "products.php?a=addToCart&sid=" +
+  		ID + "&quantity=" + Quantity;
+  	}
+  	function loadURL(URL) {
+        window.location = URL;
+      }
+
+  	</script>
 
 <?PHP
   build_footer();
